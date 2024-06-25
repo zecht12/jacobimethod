@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, ScrollView, StyleSheet, SafeAreaView, Alert } from 'react-native';
 import { DataTable } from 'react-native-paper';
 
-const JacobiMethod: React.FC = () => {
+const MetodeJacobi: React.FC = () => {
     const [matrixA, setMatrixA] = useState<string>('');
     const [vectorB, setVectorB] = useState<string>('');
     const [initialGuess, setInitialGuess] = useState<string>('');

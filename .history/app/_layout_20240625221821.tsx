@@ -21,12 +21,16 @@ export default function RootLayout() {
         <Stack.Navigator
           screenOptions={{
             animationEnabled: !reducedMotion,
-            headerShown: true,
+            headerShown: false, // Adjust according to your header visibility preference
           }}
         >
           <Stack.Screen
             name='Home'
             component={Homepage}
+          />
+          <Stack.Screen
+            name='JacobiMethod'
+            component={JacobiMethod}
           />
         </Stack.Navigator>
       </NavigationContainer>

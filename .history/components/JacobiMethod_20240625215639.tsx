@@ -19,12 +19,12 @@ const JacobiMethod: React.FC = () => {
         const x0 = parseInput(initialGuess).flat();
 
         if (A.some(row => row.length !== A.length)) {
-            Alert.alert('Kesalahan Input', 'Matriks A harus berbentuk persegi.');
+            Alert.alert('Input Error', 'Matrix A must be square.');
             return;
         }
 
         if (b.length !== A.length || x0.length !== A.length) {
-            Alert.alert('Kesalahan Input', 'Vektor b dan tebakan awal x0 harus sesuai dengan dimensi matriks A.');
+            Alert.alert('Input Error', 'Vector b and initial guess x0 must match the dimensions of matrix A.');
             return;
         }
 
@@ -34,7 +34,7 @@ const JacobiMethod: React.FC = () => {
         let newIterations: number[][] = [];
 
         for (let k = 0; k < maxIterations; k++) {
-            let xBaru = [...x];
+            let xNew = [...x];
             for (let i = 0; i < n; i++) {
                 let sum = b[i];
                 for (let j = 0; j < n; j++) {
@@ -42,13 +42,13 @@ const JacobiMethod: React.FC = () => {
                         sum -= A[i][j] * x[j];
                     }
                 }
-                xBaru[i] = sum / A[i][i];
+                xNew[i] = sum / A[i][i];
             }
-            newIterations.push([...xBaru]);
-            if (Math.max(...xBaru.map((xi, idx) => Math.abs(xi - x[idx]))) < tolerance) {
+            newIterations.push([...xNew]);
+            if (Math.max(...xNew.map((xi, idx) => Math.abs(xi - x[idx]))) < tolerance) {
                 break;
             }
-            x = [...xBaru];
+            x = [...xNew];
         }
         setIterations(newIterations);
     };
@@ -57,37 +57,37 @@ const JacobiMethod: React.FC = () => {
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <Text style={{marginTop: 20,fontSize: 16,fontWeight: 'bold',marginBottom: 10,color: '#333',}}>Metode Jacobi</Text>
-                <Text style={styles.label}>Matriks A (dipisahkan dengan koma, baris per baris):</Text>
+                <Text style={styles.label}>Matrix A (comma-separated, row by row):</Text>
                 <TextInput
                     multiline
                     style={styles.input}
                     value={matrixA}
                     onChangeText={setMatrixA}
-                    placeholder="Contoh: 1,2,1\n1,3,2\n2,1,2"
+                    placeholder="Example: 1,2,1\n1,3,2\n2,1,2"
                 />
-                <Text style={styles.label}>Vektor b (dipisahkan dengan koma):</Text>
+                <Text style={styles.label}>Vector b (comma-separated):</Text>
                 <TextInput
                     multiline
                     style={styles.input}
                     value={vectorB}
                     onChangeText={setVectorB}
-                    placeholder="Contoh: 6\n9\n12"
+                    placeholder="Example: 6\n9\n12"
                 />
-                <Text style={styles.label}>Tebakan Awal x0 (dipisahkan dengan koma):</Text>
+                <Text style={styles.label}>Initial Guess x0 (comma-separated):</Text>
                 <TextInput
                     multiline
                     style={styles.input}
                     value={initialGuess}
                     onChangeText={setInitialGuess}
-                    placeholder="Contoh: 0,0,0"
+                    placeholder="Example: 0,0,0"
                 />
-                <Button title="Hitung" onPress={handleSolve} />
+                <Button title="Solve" onPress={handleSolve} />
                 {iterations.length > 0 && (
                     <View style={styles.resultsContainer}>
-                        <Text style={styles.resultsTitle}>Hasil:</Text>
+                        <Text style={styles.resultsTitle}>Results:</Text>
                         <DataTable>
                             <DataTable.Header>
-                                <DataTable.Title>Iterasi</DataTable.Title>
+                                <DataTable.Title>Iteration</DataTable.Title>
                                 {Array.from({ length: iterations[0].length }, (_, i) => (
                                     <DataTable.Title key={i}>x{i + 1}</DataTable.Title>
                                 ))}

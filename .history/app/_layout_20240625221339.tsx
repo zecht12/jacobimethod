@@ -4,30 +4,20 @@ import { NavigationContainer } from '@react-navigation/native';
 import * as SplashScreen from 'expo-splash-screen';
 import { PaperProvider } from 'react-native-paper';
 import 'react-native-reanimated';
-import { useReducedMotion } from 'react-native-reanimated';
-import JacobiMethod from '@/components/JacobiMethod';
-import Homepage from './index';
+import { BounceIn, ReduceMotion } from 'react-native-reanimated';
+import index from '.';
 
 SplashScreen.preventAutoHideAsync();
 
 const Stack = createStackNavigator();
 
 export default function RootLayout() {
-  const reducedMotion = useReducedMotion();
-
+  const entering = BounceIn.reduceMotion(ReduceMotion.System);
   return (
     <PaperProvider>
       <NavigationContainer independent={true}>
-        <Stack.Navigator
-          screenOptions={{
-            animationEnabled: !reducedMotion,
-            headerShown: true,
-          }}
-        >
-          <Stack.Screen
-            name='Home'
-            component={Homepage}
-          />
+        <Stack.Navigator>
+          <Stack.Screen name='Home' component={J} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

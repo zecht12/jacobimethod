@@ -21,7 +21,7 @@ export default function RootLayout() {
         <Stack.Navigator
           screenOptions={{
             animationEnabled: !reducedMotion,
-            headerShown: true,
+            headerShown: false, // Adjust according to your header visibility preference
           }}
         >
           <Stack.Screen
